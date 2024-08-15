@@ -12,8 +12,7 @@ const AllProducts = () => {
 	const [allData, setAllData] = useState([]);
 	const [list, setList] = useState([]);
 	const [value, setValue] = useState("");
-	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 7; // Number of items per page
+	const [currentPage, setCurrentPage] = React.useState(1);
 
 	// Fetch data
 	useEffect(() => {
@@ -22,9 +21,8 @@ const AllProducts = () => {
 			try {
 				const res = await fetch("https://fakestoreapi.com/products");
 				const json = await res.json();
+				setList(json);
 				setAllData(json);
-				// Set initial page data
-				setList(json.slice(0, itemsPerPage));
 			} catch (error) {
 				console.error("Error fetching data:", error);
 			} finally {
@@ -42,20 +40,20 @@ const AllProducts = () => {
 	// Clear search input
 	const clearSearch = () => {
 		setSearchInput("");
-		setList(allData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
+		setList(allData);
 	};
 
 	// Search function
 	const searchRowData = () => {
 		const lowercasedInput = searchInput.toLowerCase();
 		const filterData = allData.filter((item) => item.title.toLowerCase().includes(lowercasedInput) || item.category.toLowerCase().includes(lowercasedInput));
-		setList(filterData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
+		setList(filterData);
 	};
 
 	// Trigger search when searchInput changes
 	useEffect(() => {
 		searchRowData();
-	}, [searchInput, currentPage]);
+	}, [searchInput]);
 
 	// Handle selection change
 	const handleSelectionChange = (e) => {
@@ -76,9 +74,8 @@ const AllProducts = () => {
 			sortedData.sort((a, b) => new Date(b.date) - new Date(a.date)); // Assuming there's a date field
 		}
 
-		setList(sortedData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
+		setList(sortedData);
 	};
-
 	const filterOptions = [
 		{ key: "lowToHigh", label: "Low to High" },
 		{ key: "highToLow", label: "High to Low" },
@@ -166,37 +163,24 @@ const AllProducts = () => {
 			<div className="flex flex-col gap-5 items-end justify-end my-5">
 				{/* <p className="text-small text-default-500">Selected Page: {currentPage}</p> */}
 				<Pagination
-					total={Math.ceil(allData.length / itemsPerPage)}
+					total={10}
 					color="secondary"
 					page={currentPage}
-					onChange={(page) => {
-						setCurrentPage(page);
-						setList(allData.slice((page - 1) * itemsPerPage, page * itemsPerPage));
-					}}
+					onChange={setCurrentPage}
 				/>
 				<div className="flex gap-2">
 					<Button
 						size="sm"
 						variant="flat"
 						color="secondary"
-						onPress={() => {
-							if (currentPage > 1) {
-								setCurrentPage(currentPage - 1);
-								setList(allData.slice((currentPage - 2) * itemsPerPage, (currentPage - 1) * itemsPerPage));
-							}
-						}}>
+						onPress={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}>
 						Previous
 					</Button>
 					<Button
 						size="sm"
 						variant="flat"
 						color="secondary"
-						onPress={() => {
-							if (currentPage < Math.ceil(allData.length / itemsPerPage)) {
-								setCurrentPage(currentPage + 1);
-								setList(allData.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage));
-							}
-						}}>
+						onPress={() => setCurrentPage((prev) => (prev < 10 ? prev + 1 : prev))}>
 						Next
 					</Button>
 				</div>

@@ -14,8 +14,8 @@ const NavbarComponents = () => {
 					<NavbarItem>
 						<Link
 							color="foreground"
-							href="#">
-							Features
+							href="">
+							All Products
 						</Link>
 					</NavbarItem>
 					<NavbarItem isActive>
@@ -23,13 +23,6 @@ const NavbarComponents = () => {
 							href="#"
 							aria-current="page">
 							Customers
-						</Link>
-					</NavbarItem>
-					<NavbarItem>
-						<Link
-							color="foreground"
-							href="#">
-							Integrations
 						</Link>
 					</NavbarItem>
 				</NavbarContent>
