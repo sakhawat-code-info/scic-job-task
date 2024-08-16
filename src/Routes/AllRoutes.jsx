@@ -3,6 +3,7 @@ import Root from "../Layout/Root";
 import ErrorPage from "../Pages/ErrorPage";
 import App from "../App";
 import LoginPage from "../Pages/LoginPage";
+import RegisterPage from "../Pages/RegisterPage";
 import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
 			{
 				path: "/login",
 				element: <LoginPage />,
+			},
+			{
+				path: "/register",
+				element: <RegisterPage />,
 			},
 		],
 	},

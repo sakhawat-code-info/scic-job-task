@@ -19,7 +19,7 @@ const AllProducts = () => {
 		const fetchData = async () => {
 			setLoading(true);
 			try {
-				const res = await fetch("https://fakestoreapi.com/products");
+				const res = await fetch("http://localhost:5000/myAllProducts");
 				const json = await res.json();
 				setAllData(json);
 				// Set initial page data
@@ -149,13 +149,13 @@ const AllProducts = () => {
 									shadow="sm"
 									radius="lg"
 									width="100%"
-									alt={item.title}
+									alt={item.productName}
 									className="w-full object-cover h-[240px]"
-									src={item.image}
+									src={item.productImage}
 								/>
 							</CardBody>
 							<CardFooter className="text-small justify-between">
-								<b>{item.title}</b>
+								<b>{item.productName}</b>
 								<p className="text-default-500">{item.price}</p>
 							</CardFooter>
 						</Card>

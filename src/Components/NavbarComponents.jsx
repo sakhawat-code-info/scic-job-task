@@ -19,7 +19,7 @@ const NavbarComponents = () => {
 			<Navbar shouldHideOnScroll>
 				<NavbarBrand>
 					{/* <AcmeLogo /> */}
-					<p className="font-bold text-inherit">ACME</p>
+					<p className="font-bold text-inherit">On Door e-shop</p>
 				</NavbarBrand>
 				<NavbarContent
 					className="hidden sm:flex gap-4"
@@ -27,17 +27,17 @@ const NavbarComponents = () => {
 					<NavbarItem>
 						<Link
 							color="foreground"
-							href="">
-							All Products
+							href={`/`}>
+							Home
 						</Link>
 					</NavbarItem>
-					<NavbarItem isActive>
+					{/* <NavbarItem isActive>
 						<Link
 							href="#"
 							aria-current="page">
 							Customers
 						</Link>
-					</NavbarItem>
+					</NavbarItem> */}
 				</NavbarContent>
 				<NavbarContent justify="end">
 					{user ? (
