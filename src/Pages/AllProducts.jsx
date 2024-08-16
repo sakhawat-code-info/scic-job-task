@@ -1,4 +1,3 @@
-import React from "react";
 import { Pagination, Button } from "@nextui-org/react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
@@ -85,6 +84,8 @@ const AllProducts = () => {
 		{ key: "newest", label: "Newest" },
 	];
 
+	// filter data
+
 	return (
 		<div>
 			<div className="flex justify-between items-center my-9">
@@ -118,12 +119,12 @@ const AllProducts = () => {
 					/>
 				</div>
 
-				{/* for filter  */}
+				{/* for Sorting  */}
 				<div className="flex w-1/6 flex-col gap-2">
 					<Select
 						// label="Favorite Animal"
 						variant="bordered"
-						placeholder="Filter option"
+						placeholder="Sorting"
 						selectedKeys={[value]}
 						className="max-w-xs"
 						onChange={handleSelectionChange}>

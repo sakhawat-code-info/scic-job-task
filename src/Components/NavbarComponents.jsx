@@ -1,6 +1,19 @@
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
+import UseAuth from "../AuthProvider/UseAuth";
 
 const NavbarComponents = () => {
+	const { user, loggingOut } = UseAuth();
+
+	const handleSignOut = () => {
+		loggingOut()
+			.then(() => {
+				// Sign-out successful.
+			})
+			.catch((error) => {
+				// An error happened.
+				console.log(error);
+			});
+	};
 	return (
 		<div>
 			<Navbar shouldHideOnScroll>
@@ -27,18 +40,26 @@ const NavbarComponents = () => {
 					</NavbarItem>
 				</NavbarContent>
 				<NavbarContent justify="end">
-					<NavbarItem className="hidden lg:flex">
-						<Link href="#">Login</Link>
-					</NavbarItem>
-					<NavbarItem>
-						<Button
-							as={Link}
-							color="primary"
-							href="#"
-							variant="flat">
-							Sign Up
-						</Button>
-					</NavbarItem>
+					{user ? (
+						<>
+							<NavbarItem>
+								<Button
+									as={Link}
+									color="primary"
+									onClick={handleSignOut}
+									href="#"
+									variant="flat">
+									Sign Out
+								</Button>
+							</NavbarItem>
+						</>
+					) : (
+						<>
+							<NavbarItem className="hidden lg:flex">
+								<Link href={"/login"}>Login</Link>
+							</NavbarItem>
+						</>
+					)}
 				</NavbarContent>
 			</Navbar>
 		</div>
