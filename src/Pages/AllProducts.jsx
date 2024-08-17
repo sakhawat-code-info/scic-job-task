@@ -1,9 +1,10 @@
 import { Pagination, Button } from "@nextui-org/react";
-import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+// import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import SingleProduct from "../Components/SingleProduct";
 
 const AllProducts = () => {
 	const [loading, setLoading] = useState(true);
@@ -13,7 +14,7 @@ const AllProducts = () => {
 	const [list, setList] = useState([]);
 	const [value, setValue] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 7; // Number of items per page
+	const itemsPerPage = 6; // Number of items per page
 
 	// Fetch data
 	useEffect(() => {
@@ -145,30 +146,41 @@ const AllProducts = () => {
 			</div>
 
 			{/* for card looping  */}
-			<div className="gap-4 grid grid-cols-2 md:grid-cols-3 ">
-				{!loading &&
-					list.map((item, index) => (
-						<Card
-							shadow="sm"
-							key={index}
-							isPressable
-							onPress={() => console.log("item pressed")}>
-							<CardBody className="overflow-visible p-0">
-								<Image
-									shadow="sm"
-									radius="lg"
-									width="100%"
-									alt={item.productName}
-									className="w-full object-cover h-[240px]"
-									src={item.productImage}
+			<div className="font-[sans-serif] bg-gray-100">
+				<div className="p-4 mx-auto lg:max-w-7xl sm:max-w-full">
+					<h2 className="text-4xl font-extrabold text-gray-800 mb-12">Premium Sneakers</h2>
+
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  max-xl:gap-4 gap-6">
+						{/* single items */}
+						{!loading &&
+							list.map((item, index) => (
+								<SingleProduct
+									key={index}
+									item={item}
 								/>
-							</CardBody>
-							<CardFooter className="text-small justify-between">
-								<b>{item.productName}</b>
-								<p className="text-default-500">{item.price}</p>
-							</CardFooter>
-						</Card>
-					))}
+								// <Card
+								// 	shadow="sm"
+								// 	key={index}
+								// 	isPressable
+								// 	onPress={() => console.log("item pressed")}>
+								// 	<CardBody className="overflow-visible p-0">
+								// 		<Image
+								// 			shadow="sm"
+								// 			radius="lg"
+								// 			width="100%"
+								// 			alt={item.productName}
+								// 			className="w-full object-cover h-[240px]"
+								// 			src={item.productImage}
+								// 		/>
+								// 	</CardBody>
+								// 	<CardFooter className="text-small justify-between">
+								// 		<b>{item.productName}</b>
+								// 		<p className="text-default-500">{item.price}</p>
+								// 	</CardFooter>
+								// </Card>
+							))}
+					</div>
+				</div>
 			</div>
 
 			{/* pagination  */}
