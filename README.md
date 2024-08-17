@@ -10,6 +10,11 @@
 -  npm i
 -  npm run dev
 
+# Login info
+
+-  email : user@user.com
+-  password : 123456aA
+
 # Website catagory
 
 -  You can comparison product

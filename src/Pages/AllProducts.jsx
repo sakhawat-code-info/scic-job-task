@@ -1,5 +1,4 @@
 import { Pagination, Button } from "@nextui-org/react";
-// import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { useEffect, useState } from "react";
@@ -14,7 +13,7 @@ const AllProducts = () => {
 	const [list, setList] = useState([]);
 	const [value, setValue] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 6; // Number of items per page
+	const itemsPerPage = 6;
 
 	// Fetch data
 	useEffect(() => {
@@ -24,8 +23,8 @@ const AllProducts = () => {
 				const res = await fetch("https://scic-last-task-server.vercel.app/myAllProducts");
 				const json = await res.json();
 				setAllData(json);
-				setFilteredData(json); // Initialize filteredData with the full dataset
-				setList(json.slice(0, itemsPerPage)); // Set initial page data
+				setFilteredData(json);
+				setList(json.slice(0, itemsPerPage));
 			} catch (error) {
 				console.error("Error fetching data:", error);
 			} finally {
@@ -43,8 +42,7 @@ const AllProducts = () => {
 	// Clear search input
 	const clearSearch = () => {
 		setSearchInput("");
-		setFilteredData(allData); // Reset to the full dataset
-		setCurrentPage(1); // Reset to the first page
+		setCurrentPage(1);
 	};
 
 	// Search function
@@ -52,10 +50,8 @@ const AllProducts = () => {
 		const lowercasedInput = searchInput.toLowerCase();
 		const filterData = allData.filter((item) => item.productName.toLowerCase().includes(lowercasedInput) || item.category.toLowerCase().includes(lowercasedInput));
 		setFilteredData(filterData);
-		setCurrentPage(1); // Reset to the first page after searching
 	};
 
-	// Trigger search when searchInput changes
 	useEffect(() => {
 		searchRowData();
 	}, [searchInput]);
@@ -70,17 +66,14 @@ const AllProducts = () => {
 	// Sort data based on selection
 	const sortData = (sortType) => {
 		let sortedData = [...filteredData];
-
 		if (sortType === "lowToHigh") {
 			sortedData.sort((a, b) => a.price - b.price);
 		} else if (sortType === "highToLow") {
 			sortedData.sort((a, b) => b.price - a.price);
 		} else if (sortType === "newest") {
-			sortedData.sort((a, b) => new Date(b.date) - new Date(a.date)); // Assuming there's a date field
+			sortedData.sort((a, b) => new Date(b.date) - new Date(a.date));
 		}
-
 		setFilteredData(sortedData);
-		setCurrentPage(1); // Reset to the first page after sorting
 	};
 
 	const filterOptions = [
@@ -96,11 +89,43 @@ const AllProducts = () => {
 		setList(filteredData.slice(start, end));
 	}, [currentPage, filteredData]);
 
+	// Filter states
+	// const [brandFilter, setBrandFilter] = useState("");
+	// const [categoryFilter, setCategoryFilter] = useState("");
+	// const [priceRangeFilter, setPriceRangeFilter] = useState([0, 1000]);
+
+	// const applyFilters = () => {
+	// 	let filteredData = allData;
+
+	// 	if (brandFilter) {
+	// 		filteredData = filteredData.filter((item) => item.brandName.toLowerCase() === brandFilter.toLowerCase());
+	// 	}
+
+	// 	if (categoryFilter) {
+	// 		filteredData = filteredData.filter((item) => item.category.toLowerCase() === categoryFilter.toLowerCase());
+	// 	}
+
+	// 	if (priceRangeFilter.length === 2) {
+	// 		const [minPrice, maxPrice] = priceRangeFilter;
+	// 		filteredData = filteredData.filter((item) => item.price >= minPrice && item.price <= maxPrice);
+	// 	}
+
+	// 	setFilteredData(filteredData);
+	// 	setCurrentPage(1); // Reset to the first page after filtering
+	// };
+
+	// useEffect(() => {
+	// 	applyFilters();
+	// }, [brandFilter, categoryFilter, priceRangeFilter, allData]);
+
+	// console.log(brandFilter);
+
 	return (
 		<div>
+			{/* search + sorting  */}
 			<div className="flex justify-between items-center my-9">
 				{/* for Search  */}
-				<div className="w-1/2 my-8">
+				<div className="w-1/2 my-1">
 					<Input
 						isClearable
 						radius="lg"
@@ -121,10 +146,10 @@ const AllProducts = () => {
 								"!cursor-text",
 							],
 						}}
-						placeholder="Search users by product name"
+						placeholder="Search by product name"
 						startContent={<CiSearch className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />}
-						value={searchInput} // Bind the input value to searchInput state
-						onChange={handleSearchInput} // Handle input change
+						value={searchInput}
+						onChange={handleSearchInput}
 						onClear={() => clearSearch()}
 					/>
 				</div>
@@ -132,7 +157,6 @@ const AllProducts = () => {
 				{/* for Sorting  */}
 				<div className="flex w-1/6 flex-col gap-2">
 					<Select
-						// label="Favorite Animal"
 						variant="bordered"
 						placeholder="Sorting"
 						selectedKeys={[value]}
@@ -145,10 +169,46 @@ const AllProducts = () => {
 				</div>
 			</div>
 
+			{/* filter */}
+			<div className="flex gap-2 my-7">
+				<Select
+					placeholder="Select Brand"
+					onChange={(e) => setBrandFilter(e.target.value)}>
+					<SelectItem value="DANVOUY">DANVOUY</SelectItem>
+					<SelectItem value="Opna">Opna</SelectItem>
+					<SelectItem value="MBJ">MBJ</SelectItem>
+					<SelectItem value="Generic">Generic</SelectItem>
+					<SelectItem value="Lock and Love">Lock and Love</SelectItem>
+					<SelectItem value="BIYLACLESEN">BIYLACLESEN</SelectItem>
+					<SelectItem value="Samsung">Samsung</SelectItem>
+					<SelectItem value="Acer">Acer</SelectItem>
+					<SelectItem value="WD">WD</SelectItem>
+					<SelectItem value="Silicon Power">Silicon Power</SelectItem>
+				</Select>
+
+				<Select
+					placeholder="Select Category"
+					onChange={(e) => setCategoryFilter(e.target.value)}>
+					<SelectItem value="women's clothing">Women's clothing </SelectItem>
+					<SelectItem value="men's clothing">Men's clothing</SelectItem>
+					<SelectItem value="electronics">Electronics</SelectItem>
+					<SelectItem value="jewelery">Jewelery</SelectItem>
+				</Select>
+
+				<Input
+					type="range"
+					min="0"
+					max="1000"
+					// value={priceRangeFilter[1]}
+					// onChange={(e) => setPriceRangeFilter([0, e.target.value])}
+					label="Price Range"
+				/>
+			</div>
+
 			{/* for card looping  */}
 			<div className="font-[sans-serif] bg-gray-100">
 				<div className="p-4 mx-auto lg:max-w-7xl sm:max-w-full">
-					<h2 className="text-4xl font-extrabold text-gray-800 mb-12">Premium Sneakers</h2>
+					<h2 className="text-4xl font-extrabold text-gray-800 mb-12">All Premium Products</h2>
 
 					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  max-xl:gap-4 gap-6">
 						{/* single items */}
@@ -158,26 +218,6 @@ const AllProducts = () => {
 									key={index}
 									item={item}
 								/>
-								// <Card
-								// 	shadow="sm"
-								// 	key={index}
-								// 	isPressable
-								// 	onPress={() => console.log("item pressed")}>
-								// 	<CardBody className="overflow-visible p-0">
-								// 		<Image
-								// 			shadow="sm"
-								// 			radius="lg"
-								// 			width="100%"
-								// 			alt={item.productName}
-								// 			className="w-full object-cover h-[240px]"
-								// 			src={item.productImage}
-								// 		/>
-								// 	</CardBody>
-								// 	<CardFooter className="text-small justify-between">
-								// 		<b>{item.productName}</b>
-								// 		<p className="text-default-500">{item.price}</p>
-								// 	</CardFooter>
-								// </Card>
 							))}
 					</div>
 				</div>

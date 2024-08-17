@@ -19,7 +19,7 @@ const NavbarComponents = () => {
 			<Navbar shouldHideOnScroll>
 				<NavbarBrand>
 					{/* <AcmeLogo /> */}
-					<p className="font-bold text-inherit">On Door e-shop</p>
+					<p className="font-bold text-left">On Door e-shop</p>
 				</NavbarBrand>
 				<NavbarContent
 					className="hidden sm:flex gap-4"
