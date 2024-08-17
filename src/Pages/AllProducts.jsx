@@ -90,33 +90,33 @@ const AllProducts = () => {
 	}, [currentPage, filteredData]);
 
 	// Filter states
-	// const [brandFilter, setBrandFilter] = useState("");
-	// const [categoryFilter, setCategoryFilter] = useState("");
-	// const [priceRangeFilter, setPriceRangeFilter] = useState([0, 1000]);
+	const [brandFilter, setBrandFilter] = useState("");
+	const [categoryFilter, setCategoryFilter] = useState("");
+	const [priceRangeFilter, setPriceRangeFilter] = useState([0, 1000]);
 
-	// const applyFilters = () => {
-	// 	let filteredData = allData;
+	const applyFilters = () => {
+		let filteredData = allData;
 
-	// 	if (brandFilter) {
-	// 		filteredData = filteredData.filter((item) => item.brandName.toLowerCase() === brandFilter.toLowerCase());
-	// 	}
+		if (brandFilter) {
+			filteredData = filteredData.filter((item) => item.brandName.toLowerCase() === brandFilter.toLowerCase());
+		}
 
-	// 	if (categoryFilter) {
-	// 		filteredData = filteredData.filter((item) => item.category.toLowerCase() === categoryFilter.toLowerCase());
-	// 	}
+		if (categoryFilter) {
+			filteredData = filteredData.filter((item) => item.category.toLowerCase() === categoryFilter.toLowerCase());
+		}
 
-	// 	if (priceRangeFilter.length === 2) {
-	// 		const [minPrice, maxPrice] = priceRangeFilter;
-	// 		filteredData = filteredData.filter((item) => item.price >= minPrice && item.price <= maxPrice);
-	// 	}
+		if (priceRangeFilter.length === 2) {
+			const [minPrice, maxPrice] = priceRangeFilter;
+			filteredData = filteredData.filter((item) => item.price >= minPrice && item.price <= maxPrice);
+		}
 
-	// 	setFilteredData(filteredData);
-	// 	setCurrentPage(1); // Reset to the first page after filtering
-	// };
+		setFilteredData(filteredData);
+		setCurrentPage(1); // Reset to the first page after filtering
+	};
 
-	// useEffect(() => {
-	// 	applyFilters();
-	// }, [brandFilter, categoryFilter, priceRangeFilter, allData]);
+	useEffect(() => {
+		applyFilters();
+	}, [brandFilter, categoryFilter, priceRangeFilter, allData]);
 
 	// console.log(brandFilter);
 
@@ -199,8 +199,8 @@ const AllProducts = () => {
 					type="range"
 					min="0"
 					max="1000"
-					// value={priceRangeFilter[1]}
-					// onChange={(e) => setPriceRangeFilter([0, e.target.value])}
+					value={priceRangeFilter[1]}
+					onChange={(e) => setPriceRangeFilter([0, e.target.value])}
 					label="Price Range"
 				/>
 			</div>
