@@ -1,6 +1,7 @@
 # Demo
 
 -  Live website URL link : https://eloquent-quokka-816248.netlify.app
+-  Live server URL link : https://scic-last-task-server.vercel.app
 
 # How to Install
 
@@ -29,14 +30,5 @@
     -> Google login system
     -> Footer
     -> Error page
-
-# Characteristics :
-
-    -> Comprehensive database of alternative products.
-    -> Search functionality by category, brand, price range, and features.
-    -> Product comparison feature.
-    -> User reviews and ratings.
-    -> Recommendation engine.
-    -> Detailed product information.
 
 Thank you
